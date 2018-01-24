@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>RPS Multiplayer</title>
+
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.8.2/firebase.js"></script>
+
+</head>
+
+<body>
+
+ <!--<div id="game">
+    <p>Press r, p or s to start playing!</p>
+  </div>-->
+  
+ <div class="player-name">
+    <form id="player-form">
+      <input type="text" id="player-name-input" placeholder="Name" size="35">
+      <input id="add-player" type="submit" value="Start">
+      
+    </form>
+  </div>
+
+
+  <script type="text/javascript">
+  
+  var player = null;
+  var readyPlayer1 = 0;
+  var readyPlayer2 = 0;
+  
+  var whichPlayer = 1;
+  
+  var player1name;
+  
+  
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCKSPVNXhENlPISKP-9TVedy4n3BRfFcss",
+    authDomain: "rps-multi-248cf.firebaseapp.com",
+    databaseURL: "https://rps-multi-248cf.firebaseio.com",
+    projectId: "rps-multi-248cf",
+    storageBucket: "rps-multi-248cf.appspot.com",
+    messagingSenderId: "738053954332"
+  };
+  
+  firebase.initializeApp(config);
+  
+  var database = firebase.database();
+  
+	//On click to get player name and info
+	$("#add-player").on("click", function(event) {
+		event.preventDefault();
+
+		// Grab name and info set which player in database
+		var playerName = $("#player-name-input").val().trim();
+		console.log(readyPlayer1);
+		
+		if (readyPlayer1 === 0) {
+			player  = {
+			name: playerName,
+			role: 1,
+			start: 1,
+			rate: 1    
+ 			};
+		   readyPlayer1 = 1;
+		   console.log(readyPlayer1);
+   	 	} else {
+			whichPlayer = 2;
+			player  = {
+			name: playerName,
+			role: 1,
+			start: 1,
+			rate: 1    
+			};
+   	 	}
+
+		database.ref().child("/players/player" + whichPlayer).set(player);
+  
+		console.log(player);
+
+		alert("Player successfully added");
+ 
+	}); // add-player on click ends here
+
+  
+  
+
+  </script>
+</body>
+</html>
