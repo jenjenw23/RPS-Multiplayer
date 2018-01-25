@@ -8,6 +8,7 @@ $(document).ready(function() {
   var whichPlayer = 1;
   
   var player1name;
+  var player2name;
   
   
   // Initialize Firebase
@@ -24,13 +25,18 @@ $(document).ready(function() {
   
   var database = firebase.database();
   
-  database.ref("/players/").on("value", function(snapshot) {
-	player1 = snapshot.val().player1;
+  	database.ref("/players/").on("value", function(snapshot) {
+		player1 = snapshot.val().player1;
 		player1Name = player1.name;
 
+		player2 = snapshot.val().player2;
+		player2Name = player2.name;
+
 		// Update player1 display
-$("#show-first-player").text(player1Name);
-});  
+		$("#show-first-player").text(player1Name);
+		$("#show-second-player").text(player2Name);
+
+	});  
 	  
 	  
   
